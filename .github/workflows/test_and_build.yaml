@@ -1,0 +1,36 @@
+name: Publish with Semantic Release (Production)
+
+on:
+  pull_request:
+    branches-ignore: ["prod"]
+    types: [opened, edited, synchronize]
+  push:
+    branches:
+      - "prod"
+
+jobs:
+  test_and_build:
+    name: Builds and runs tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Use Node.js 20.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "npm"
+      - name: Install dependencies
+        run: npm install
+      - name:  Build
+        run: npm run build
+      - name: Test
+        run: npm run test
+      - name: Semantic release
+        if: github.event_name == 'push' && github.ref == 'refs/heads/prod'
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > .npmrc
+          npm run semantic-release

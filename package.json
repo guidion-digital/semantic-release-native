@@ -8,11 +8,19 @@
     "build": "npx rimraf dist && npx tsc && npm run copy",
     "semantic-release": "semantic-release"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/guidion-digital/semantic-release-native.git"
+  },
   "private": false,
   "main": "dist/index",
   "types": "./dist/index.d.ts",
   "author": "Guidion",
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/guidion-digital/semantic-release-native/issues"
+  },
+  "homepage": "https://github.com/guidion-digital/semantic-release-native#readme",
   "devDependencies": {
     "@types/jest": "^29.5.1",
     "@types/node": "^18.16.3",
@@ -28,5 +36,8 @@
     "@semantic-release/error": "^3.0.0",
     "plist": "^3.0.6",
     "semver": "^7.5.0"
+  },
+  "release": {
+    "branches": ["prod"]
   }
 }

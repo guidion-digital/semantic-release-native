@@ -5,6 +5,12 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+# Required npm token file
+.npmrc
+
+# Act / GH actions secrets
+.secrets
+
 # Runtime data
 pids
 *.pid
