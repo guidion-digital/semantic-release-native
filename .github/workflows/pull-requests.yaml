@@ -1,0 +1,16 @@
+# Runs tests and builds for every pull request creation and update event.
+
+name: Run tests and build on PR
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize]
+
+jobs:
+  test_and_build:
+    name: Run tests and build on PR
+    uses: ./.github/workflows/test-build-release.yaml
+    secrets: inherit
+    with:
+      job_name: "Run tests and build"
+      concurrency_name: "${{github.ref}}"

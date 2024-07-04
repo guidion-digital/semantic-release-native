@@ -1,0 +1,15 @@
+name: Run tests and build on PR
+
+on:
+  push:
+    branches:
+      - "prod"
+
+jobs:
+  build_and_release:
+    name: Test, build and release
+    uses: ./.github/workflows/test-build-release.yaml
+    secrets: inherit
+    with:
+      job_name: "Run tests, builds and releases with semantic release"
+      environment_name: "prod"
