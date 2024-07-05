@@ -24,10 +24,6 @@ jobs:
       group: ${{ inputs.concurrency_name || inputs.environment_name }}
       cancel-in-progress: true
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      issues: write
-      pull-requests: write
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
