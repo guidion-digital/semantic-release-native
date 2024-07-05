@@ -17,13 +17,17 @@ on:
         type: string
 
 jobs:
-  test_and_build:
+  test_build_release:
     name: ${{ inputs.job_name }}
     environment: "${{ inputs.environment_name }}"
     concurrency:
       group: ${{ inputs.concurrency_name || inputs.environment_name }}
       cancel-in-progress: true
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
