@@ -8,7 +8,7 @@ on:
 jobs:
   test_and_build:
     name: Test, build and release
-    uses: guidion-digital/.github/.github/workflows/partial-test-build.yaml@GDD-5502
+    uses: guidion-digital/node-workflows/.github/workflows/partial-test-build.yaml@0.0.2
     secrets: inherit
     with:
       concurrency_name: "${{github.ref}}"
@@ -16,7 +16,7 @@ jobs:
 
   release:
     name: Release
-    uses: guidion-digital/.github/.github/workflows/semantic-release.yaml@GDD-5502
+    uses: guidion-digital/node-workflows/.github/workflows/semantic-release.yaml@0.0.2
     needs: test_and_build
     secrets: inherit
     permissions:
