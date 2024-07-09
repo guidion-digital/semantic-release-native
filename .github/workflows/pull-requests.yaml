@@ -1,4 +1,4 @@
-# Runs tests and builds for every pull request creation and update event
+# Runs tests and builds for every pull request creation and update event.
 
 name: Run tests and build on PR
 
