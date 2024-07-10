@@ -8,7 +8,7 @@ Simply `npm install @gdn/semantic-release-native --save-dev` and add the plugin 
 
 ```json
 "prepare": [
-  "@gdn/semantic-release-native"`
+  "@gdn/semantic-release-native"
 ]
 ```
 ## Advanced
