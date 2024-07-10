@@ -1,4 +1,4 @@
-name: Run tests, build and releases on PR
+name: Run tests, build and releases on prod branch
 
 on:
   push:
@@ -23,5 +23,6 @@ jobs:
       contents: write
       issues: write
       pull-requests: write
+      id-token: write
     with:
       environment_name: "prod"

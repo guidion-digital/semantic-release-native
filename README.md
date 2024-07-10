@@ -24,7 +24,7 @@ If you want to generate release notes for your fastlane, pass isFastlane boolean
 ```json
 "prepare": [
   {
-    "path": "@gdn/semantic-release-native"`,
+    "path": "@gdn/semantic-release-native",
     "isFastlane": true,
     "fastlaneReleaseNoteLanguages": ["en-US", "nl-NL"]
   }
