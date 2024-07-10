@@ -1,0 +1,2 @@
+# rename file to '.npmrc' and place the token in the line above
+//registry.npmjs.org/:_authToken=TokenGoesHere
