@@ -4,6 +4,7 @@ import SemanticReleaseError from '@semantic-release/error';
 import { updateGradleVersion } from './android';
 import { updatePlist } from './ios';
 import { writeNotesToFastlane } from './fastlane';
+import { getVersionCode } from './utils';
 
 /**
  * Prepare the new release by updating gradle and plist.
@@ -11,17 +12,23 @@ import { writeNotesToFastlane } from './fastlane';
  * It should also update the version code and build number when available.
  */
 const prepare: SemanticMethod = async (config, context) => {
+  if (!context.nextRelease) {
+    throw new Error('No next release found');
+  }
+
   const androidPath = config.androidPath || './android';
   const iosPath = config.iosPath || './ios';
-  const androidWork = updateGradleVersion(androidPath, context.nextRelease!.version);
 
-  const iosWork = updatePlist(iosPath, context.nextRelease!.version);
+  const versionCode = getVersionCode(context.nextRelease.version);
+
+  const androidWork = updateGradleVersion(androidPath, context.nextRelease.version);
+
+  const iosWork = updatePlist(iosPath, context.nextRelease.version);
 
   const promises = [androidWork, iosWork];
 
   if (config.isFastlane && config.fastlaneReleaseNoteLanguages) {
-    promises.push(writeNotesToFastlane(iosPath, config.fastlaneReleaseNoteLanguages, context.nextRelease!.notes, context.logger.log));
-    promises.push(writeNotesToFastlane(androidPath, config.fastlaneReleaseNoteLanguages, context.nextRelease!.notes, context.logger.log));
+    promises.push(writeNotesToFastlane(androidPath, iosPath, config.fastlaneReleaseNoteLanguages, versionCode, context.nextRelease.notes, context.logger.log));
   }
 
   return Promise.all(promises).then(() => {
