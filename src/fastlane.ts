@@ -3,10 +3,10 @@ import { writeFile } from './utils';
 import { mkdir } from 'fs/promises';
 import { Context } from './interfaces';
 
-export const writeNotesToFastlane = async (osPath: string, languages: string[], releaseNotes: string, log: Context['logger']['log']) => {
+export const writeNotesToFastlane = async (osPath: string, osSpecifier: string, languages: string[], version: number, releaseNotes: string, log: Context['logger']['log']) => {
   return Promise.all([languages.map(async language => {
-    const metaDataPath = path.join(osPath, 'fastlane', 'metadata', language);
-    const notesPath = path.join(metaDataPath, 'release_notes.txt');
+    const metaDataPath = path.join(osPath, 'fastlane', 'metadata', osSpecifier, language);
+    const notesPath = path.join(metaDataPath, `${version}.txt`);
     log('[📝] Writing release notes to', notesPath);
 
     return mkdir(metaDataPath, { recursive: true })
