@@ -11,7 +11,10 @@ export const updatePlist = async (path: string, newVersion: string) => {
     const plistPath = join(dirPath, 'Info.plist');
     return prev
       .then(() => readFile(plistPath))
-      .then(file => writeFile(plistPath, editPlistVersion(file, newVersion)))
+      .then(file => {
+        console.log('✅ Found plist file:', plistPath);
+        return writeFile(plistPath, editPlistVersion(file, newVersion));
+      })
       .catch(err => console.log('could not find a plist file in:', err.path));
   }, Promise.resolve());
 }
