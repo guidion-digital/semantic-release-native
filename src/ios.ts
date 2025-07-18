@@ -2,8 +2,8 @@ import { readDir, readFile, writeFile } from './utils';
 import { statSync } from 'fs';
 import { join } from 'path';
 import plist from 'plist';
-export const updatePlist = async (path: string, newVersion: string) => {
 
+export const updatePlist = async (path: string, newVersion: string) => {
   const files = await readDir(path);
   const dirs = files.map(f => join(path, f)).filter(baseFile => statSync(baseFile).isDirectory());
 
