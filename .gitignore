@@ -69,3 +69,4 @@ typings/
 local.json
 
 dist
+tsconfig.tsbuildinfo
