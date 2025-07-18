@@ -12,6 +12,7 @@ jobs:
     secrets: inherit
     with:
       concurrency_name: "${{github.ref}}"
+      enable_npmrc_echo: true
 
   release:
     name: Release
@@ -25,3 +26,4 @@ jobs:
       id-token: write
     with:
       environment_name: "prod"
+      enable_npmrc_echo: true
