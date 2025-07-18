@@ -12,7 +12,6 @@ jobs:
     secrets: inherit
     with:
       concurrency_name: "${{github.ref}}"
-      enable_linting: false
 
   release:
     name: Release
