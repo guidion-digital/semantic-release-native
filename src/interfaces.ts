@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /**
  * The semantic release configuration itself.
  */
@@ -42,8 +43,8 @@ export interface Context {
   nextRelease?: NextRelease;
   /** The shared logger instance of semantic release. */
   logger: {
-    log: (message: string, ...vars: any[]) => void,
-    error: (message: string, ...vars: any[]) => void,
+    log: (message: string, ...vars: any[]) => void;
+    error: (message: string, ...vars: any[]) => void;
   };
 }
 

@@ -1,4 +1,4 @@
-import { SemanticMethod, Config } from './interfaces';
+import { SemanticMethod } from './interfaces';
 
 import SemanticReleaseError from '@semantic-release/error';
 import { updateGradleVersion } from './android';
@@ -28,7 +28,16 @@ const prepare: SemanticMethod = async (config, context) => {
   const promises = [androidWork, iosWork];
 
   if (config.isFastlane && config.fastlaneReleaseNoteLanguages) {
-    promises.push(writeNotesToFastlane(androidPath, iosPath, config.fastlaneReleaseNoteLanguages, versionCode, context.nextRelease.notes, context.logger.log));
+    promises.push(
+      writeNotesToFastlane(
+        androidPath,
+        iosPath,
+        config.fastlaneReleaseNoteLanguages,
+        versionCode,
+        context.nextRelease.notes,
+        context.logger.log
+      )
+    );
   }
 
   return Promise.all(promises).then(() => {
