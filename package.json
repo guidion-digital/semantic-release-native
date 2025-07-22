@@ -6,7 +6,7 @@
     "test-watch": "npx jest --watch",
     "coverage": "npx jest --coverage --runInBand",
     "test": "npx jest --runInBand",
-    "lint": "eslint src",
+    "lint": "eslint -c eslint.config.mjs \"?(src|__tests__)/**/*.ts{,x}\"",
     "copy": "npx copyfiles -u 2 __tests__/**/build.gradle __tests__/**/info.plist dist/",
     "build": "npx rimraf dist && npx tsc",
     "semantic-release": "semantic-release"
@@ -25,18 +25,18 @@
   },
   "homepage": "https://github.com/guidion-digital/semantic-release-native#readme",
   "devDependencies": {
+    "@gdn/eslint-config-core": "^1.3.4",
     "@types/jest": "^30.0.0",
     "@types/node": "^20",
     "@types/semver": "^7.3.13",
     "copyfiles": "^2.4.1",
-    "jest": "^30.0.4",
-    "semantic-release": "^24.0.0",
     "eslint": "^9.30.1",
     "eslint-plugin-jest": "^28.14.0",
-    "@gdn/eslint-config-core": "^1.3.4",
+    "jest": "^30.0.4",
+    "rimraf": "^6.0.1",
+    "semantic-release": "^24.0.0",
     "ts-jest": "^29.4.0",
-    "typescript": "5.8.3",
-    "rimraf": "^5.0.0"
+    "typescript": "5.8.3"
   },
   "dependencies": {
     "@semantic-release/error": "^3.0.0",
@@ -44,6 +44,8 @@
     "semver": "^7.5.0"
   },
   "release": {
-    "branches": ["prod"]
+    "branches": [
+      "prod"
+    ]
   }
 }

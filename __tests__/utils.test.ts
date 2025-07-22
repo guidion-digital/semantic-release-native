@@ -1,6 +1,6 @@
 import fs from 'fs';
 
-import { readFile, writeFile, readDir, getVersionCode } from '../src/utils';
+import { getVersionCode, readDir, readFile, writeFile } from '../src/utils';
 
 jest.mock('fs', () => ({
   readFile: jest.fn().mockImplementation((_, __, fn) => {

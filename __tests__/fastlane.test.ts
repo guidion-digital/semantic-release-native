@@ -31,7 +31,9 @@ describe('fastlane', () => {
 
     // android
     expect(mkdir).toHaveBeenCalledWith(config.androidPath + '/fastlane/metadata/android/en/changelogs', { recursive: true });
-    expect(writeFile).toHaveBeenCalledWith(config.androidPath + '/fastlane/metadata/android/en/changelogs/31000.txt', 'Release notes');
+    expect(writeFile).toHaveBeenCalledWith(
+      config.androidPath + '/fastlane/metadata/android/en/changelogs/31000.txt', 'Release notes'
+    );
   });
 
   it('should write release notes to fastlane to ios', async () => {
@@ -70,8 +72,12 @@ describe('fastlane', () => {
     // android
     expect(mkdir).toHaveBeenCalledWith(config.androidPath + '/fastlane/metadata/android/en/changelogs', { recursive: true });
     expect(mkdir).toHaveBeenCalledWith(config.androidPath + '/fastlane/metadata/android/de/changelogs', { recursive: true });
-    expect(writeFile).toHaveBeenCalledWith(config.androidPath + '/fastlane/metadata/android/en/changelogs/31000.txt', 'Release notes');
-    expect(writeFile).toHaveBeenCalledWith(config.androidPath + '/fastlane/metadata/android/de/changelogs/31000.txt', 'Release notes');
+    expect(writeFile).toHaveBeenCalledWith(
+      config.androidPath + '/fastlane/metadata/android/en/changelogs/31000.txt', 'Release notes'
+    );
+    expect(writeFile).toHaveBeenCalledWith(
+      config.androidPath + '/fastlane/metadata/android/de/changelogs/31000.txt', 'Release notes'
+    );
 
     // ios
     expect(mkdir).toHaveBeenCalledWith(config.iosPath + '/fastlane/metadata/en', { recursive: true });

@@ -27,10 +27,10 @@ describe('prepare', () => {
   it('should correctly set the versions in gradle', async () => {
     const result = await prepare(config, context);
 
-    let data = await fsPromises.readFile(config.androidPath + '/app/build.gradle', 'utf8');
+    const data = await fsPromises.readFile(config.androidPath + '/app/build.gradle', 'utf8');
 
-    expect(data.indexOf('versionCode 20203') > -1);
-    expect(data.indexOf('versionName "2.2.3"') > -1);
+    expect(data.includes('versionCode 20203')).toBe(true);
+    expect(data.includes('versionName "2.2.3"')).toBe(true);
     expect(result).toBe(undefined);
   });
 
@@ -41,29 +41,29 @@ describe('prepare', () => {
 
     const plistContents = plist.parse(data);
 
-    expect(plistContents.CFBundleVersion === '2.2.3');
-    expect(plistContents.CFBundleShortVersionString === '2.2.3');
+    expect(plistContents.CFBundleVersion === '2.2.3').toBe(true);
+    expect(plistContents.CFBundleShortVersionString === '2.2.3').toBe(true);
     expect(result).toBe(undefined);
-  })
+  });
 
   it('should correctly set the versions in gradle again', async () => {
     context.nextRelease!.version = '3.10.0';
 
-    const result = await prepare(config, context);
+    await prepare(config, context);
 
-    let data = await  fsPromises.readFile(config.androidPath + '/app/build.gradle', 'utf8');
+    const data = await fsPromises.readFile(config.androidPath + '/app/build.gradle', 'utf8');
 
-    expect(data.indexOf('versionCode 31000') > -1);
-    expect(data.indexOf('versionName "3.10.0"') > -1);
+    expect(data.includes('versionCode 31000')).toBe(true);
+    expect(data.includes('versionName "3.10.0"')).toBe(true);
   });
 
-  it('should correctly set the versions in plist', async () => {
+  it('should correctly set the versions in plist again', async () => {
     context.nextRelease!.version = '3.10.0';
 
     const data = await fsPromises.readFile(config.iosPath + '/ios_project/info.plist', 'utf8');
 
     const plistContents = plist.parse(data);
-    expect(plistContents.CFBundleVersion === '3.10.0');
-    expect(plistContents.CFBundleShortVersionString === '3.10.0');
+    expect(plistContents.CFBundleVersion === '3.10.0').toBe(true);
+    expect(plistContents.CFBundleShortVersionString === '3.10.0').toBe(true);
   });
 });
