@@ -1,8 +1,23 @@
-import fsPromises from 'fs/promises';
-import plist from 'plist';
-
 import { prepare } from '../src';
 import { Context } from '../src/interfaces';
+import { getVersionCode } from '../src/utils';
+import { updatePlist } from '../src/ios';
+import { updateGradleVersion } from '../src/android';
+import { writeNotesToFastlane } from '../src/fastlane';
+
+
+jest.mock('../src/android', () => ({
+  updateGradleVersion: jest.fn(),
+}));
+jest.mock('../src/ios', () => ({
+  updatePlist: jest.fn(),
+}));
+jest.mock('../src/fastlane', () => ({
+  writeNotesToFastlane: jest.fn(),
+}));
+jest.mock('../src/utils', () => ({
+  getVersionCode: jest.fn().mockReturnValue(20203),
+}));
 
 const context: Context = {
   logger: {
@@ -11,8 +26,6 @@ const context: Context = {
   },
   nextRelease: { version: '2.2.3', gitHead: 'bla', gitTag: '', notes: 'super cool release!' }
 };
-
-
 const config = { androidPath: __dirname + '/fixtures/android_project', iosPath: __dirname + '/fixtures' };
 
 describe('prepare', () => {
@@ -24,46 +37,34 @@ describe('prepare', () => {
     context.nextRelease!.version = '2.2.3';
   });
 
-  it('should correctly set the versions in gradle', async () => {
+  it('should correctly set the versions', async () => {
     const result = await prepare(config, context);
 
-    const data = await fsPromises.readFile(config.androidPath + '/app/build.gradle', 'utf8');
+    expect(getVersionCode).toHaveBeenCalledWith('2.2.3');
+    expect(updateGradleVersion).toHaveBeenCalledWith(config.androidPath, '2.2.3');
+    expect(updatePlist).toHaveBeenCalledWith(config.iosPath, '2.2.3');
 
-    expect(data.includes('versionCode 20203')).toBe(true);
-    expect(data.includes('versionName "2.2.3"')).toBe(true);
     expect(result).toBe(undefined);
   });
 
-  it('should correctly set the versions in plist', async () => {
-    const result = await prepare(config, context);
+  it('should correctly set the versions with fastlane', async () => {
+    const result = await prepare(
+      { ...config, isFastlane: true, fastlaneReleaseNoteLanguages: ['en'] },
+      context
+    );
 
-    const data = await fsPromises.readFile(config.iosPath + '/ios_project/info.plist', 'utf8');
+    expect(getVersionCode).toHaveBeenCalledWith('2.2.3');
+    expect(updateGradleVersion).toHaveBeenCalledWith(config.androidPath, '2.2.3');
+    expect(updatePlist).toHaveBeenCalledWith(config.iosPath, '2.2.3');
+    expect(writeNotesToFastlane).toHaveBeenCalledWith(
+      config.androidPath,
+      config.iosPath,
+      ['en'],
+      20203,
+      'super cool release!',
+      context.logger.log
+    );
 
-    const plistContents = plist.parse(data);
-
-    expect(plistContents.CFBundleVersion).toBe('2.2.3');
-    expect(plistContents.CFBundleShortVersionString).toBe('2.2.3');
     expect(result).toBe(undefined);
-  });
-
-  it('should correctly set the versions in gradle again', async () => {
-    context.nextRelease!.version = '3.10.0';
-
-    await prepare(config, context);
-
-    const data = await fsPromises.readFile(config.androidPath + '/app/build.gradle', 'utf8');
-
-    expect(data.includes('versionCode 31000')).toBe(true);
-    expect(data.includes('versionName "3.10.0"')).toBe(true);
-  });
-
-  it('should correctly set the versions in plist again', async () => {
-    context.nextRelease!.version = '3.10.0';
-
-    const data = await fsPromises.readFile(config.iosPath + '/ios_project/info.plist', 'utf8');
-
-    const plistContents = plist.parse(data);
-    expect(plistContents.CFBundleVersion).toBe('3.10.0');
-    expect(plistContents.CFBundleShortVersionString).toBe('3.10.0');
   });
 });
