@@ -41,8 +41,8 @@ describe('prepare', () => {
 
     const plistContents = plist.parse(data);
 
-    expect(plistContents.CFBundleVersion === '2.2.3').toBe(true);
-    expect(plistContents.CFBundleShortVersionString === '2.2.3').toBe(true);
+    expect(plistContents.CFBundleVersion).toBe('2.2.3');
+    expect(plistContents.CFBundleShortVersionString).toBe('2.2.3');
     expect(result).toBe(undefined);
   });
 
@@ -63,7 +63,7 @@ describe('prepare', () => {
     const data = await fsPromises.readFile(config.iosPath + '/ios_project/info.plist', 'utf8');
 
     const plistContents = plist.parse(data);
-    expect(plistContents.CFBundleVersion === '3.10.0').toBe(true);
-    expect(plistContents.CFBundleShortVersionString === '3.10.0').toBe(true);
+    expect(plistContents.CFBundleVersion).toBe('3.10.0');
+    expect(plistContents.CFBundleShortVersionString).toBe('3.10.0');
   });
 });
