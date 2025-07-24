@@ -8,7 +8,7 @@ export const readFile = (file: string): Promise<string> => {
       resolve(data);
     });
   });
-}
+};
 
 export const writeFile = (path: string, contents: string): Promise<string> => {
   return new Promise((resolve, reject) => {
@@ -17,18 +17,18 @@ export const writeFile = (path: string, contents: string): Promise<string> => {
       resolve('saved: ' + path);
     });
   });
-}
+};
 
 export const readDir = (path: string): Promise<string[]> => {
   return new Promise((resolve, reject) => {
     return fs.readdir(path, function (err, filenames) {
       if (err) {
-        throw ('directory not found' + path);
+        reject('directory not found' + path);
       }
       resolve(filenames);
     });
   });
-}
+};
 
 export const getVersionCode = (nextVersion: string) => {
   const next = coerce(nextVersion);

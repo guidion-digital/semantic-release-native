@@ -8,5 +8,6 @@ export const updateGradleVersion = async (androidPath: string, nextVersion: stri
   const nextVersionCode = getVersionCode(nextVersion);
   const withUpgradedVersionCode = contents.replace(/((versionCode \d+){1})/g, 'versionCode ' + nextVersionCode);
   const withUpgradedCodeAndName = withUpgradedVersionCode.replace(/((versionName ".*"){1})/g, 'versionName "' + nextVersion + '"');
+
   return writeFile(gradlePath, withUpgradedCodeAndName);
-}
+};
