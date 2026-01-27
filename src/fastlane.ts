@@ -5,6 +5,12 @@ import { Context } from './interfaces';
 
 export const writeNotesToFastlane = async (androidPath: string, iOSPath: string, languages: string[],
   version: number, releaseNotes: string, log: Context['logger']['log']) => {
+  const RELEASE_NOTES_MAX_LENGTH = 495; // Play store max length is 500
+
+  const safeReleaseNotes = releaseNotes.length > RELEASE_NOTES_MAX_LENGTH
+    ? releaseNotes.slice(0, RELEASE_NOTES_MAX_LENGTH) + '...'
+    : releaseNotes;
+
   const writeNotes = (osPath: string, fileName: string, changeLogsPath?: string) => {
     return Promise.all([languages.map(async language => {
       const paths = [osPath, language];
@@ -19,7 +25,7 @@ export const writeNotesToFastlane = async (androidPath: string, iOSPath: string,
       log('[📝] Writing release notes to', notesPath);
 
       return mkdir(metaDataPath, { recursive: true })
-        .then(() => writeFile(notesPath, releaseNotes));
+        .then(() => writeFile(notesPath, safeReleaseNotes));
     })]);
   };
 
