@@ -1,9 +1,9 @@
-import { SemanticMethod } from './interfaces';
-
 import SemanticReleaseError from '@semantic-release/error';
+
 import { updateGradleVersion } from './android';
-import { updatePlist } from './ios';
 import { writeNotesToFastlane } from './fastlane';
+import { SemanticMethod } from './interfaces';
+import { updatePlist } from './ios';
 import { getVersionCode } from './utils';
 
 /**

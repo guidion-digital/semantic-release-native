@@ -1,7 +1,8 @@
-import path from 'path';
-import { writeFile } from './utils';
 import { mkdir } from 'fs/promises';
+import path from 'path';
+
 import { Context } from './interfaces';
+import { writeFile } from './utils';
 
 export const writeNotesToFastlane = async (androidPath: string, iOSPath: string, languages: string[],
   version: number, releaseNotes: string, log: Context['logger']['log']) => {

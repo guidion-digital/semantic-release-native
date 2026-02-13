@@ -1,9 +1,9 @@
 import { prepare } from '../src';
-import { Context } from '../src/interfaces';
-import { getVersionCode } from '../src/utils';
-import { updatePlist } from '../src/ios';
 import { updateGradleVersion } from '../src/android';
 import { writeNotesToFastlane } from '../src/fastlane';
+import { Context } from '../src/interfaces';
+import { updatePlist } from '../src/ios';
+import { getVersionCode } from '../src/utils';
 
 
 jest.mock('../src/android', () => ({

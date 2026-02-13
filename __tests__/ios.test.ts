@@ -1,6 +1,7 @@
+import plist from 'plist';
+
 import { updatePlist } from '../src/ios';
 import { readDir, readFile, writeFile } from '../src/utils';
-import plist from 'plist';
 
 
 jest.mock('../src/utils', () => ({
