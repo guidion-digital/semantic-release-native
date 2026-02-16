@@ -6,7 +6,7 @@
     "test-watch": "npx jest --watch",
     "coverage": "npx jest --coverage --runInBand",
     "test": "npx jest --runInBand",
-    "lint": "eslint -c eslint.config.mjs \"**/*.{ts,js}\"",
+    "lint": "eslint -c eslint.config.mjs",
     "lint-fix": "npm run lint -- --fix",
     "copy": "npx copyfiles -u 2 __tests__/**/build.gradle __tests__/**/info.plist dist/",
     "build": "npx rimraf dist && npx tsc",
