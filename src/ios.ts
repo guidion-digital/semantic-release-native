@@ -1,7 +1,8 @@
-import { readDir, readFile, writeFile } from './utils';
 import { statSync } from 'fs';
 import { join } from 'path';
 import plist from 'plist';
+
+import { readDir, readFile, writeFile } from './utils';
 
 export const updatePlist = async (path: string, newVersion: string) => {
   const files = await readDir(path);

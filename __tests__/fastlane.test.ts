@@ -1,4 +1,5 @@
 import { mkdir } from 'fs/promises';
+
 import { writeNotesToFastlane } from '../src/fastlane';
 import { writeFile } from '../src/utils';
 
