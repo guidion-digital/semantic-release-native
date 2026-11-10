@@ -11,7 +11,8 @@
     "copy": "npx copyfiles -u 2 __tests__/**/build.gradle __tests__/**/info.plist dist/",
     "build": "npx rimraf dist && npx tsc",
     "semantic-release": "semantic-release",
-    "setup-node-version": "npx -p @gdn/js-backend-toolkit setupNodeVersion --version=26"
+    "setup-node-version": "npx -p @gdn/js-backend-toolkit setupNodeVersion --version=26",
+    "tsc": "tsc --noEmit"
   },
   "repository": {
     "type": "git",
