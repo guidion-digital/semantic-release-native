@@ -11,7 +11,7 @@
     "copy": "npx copyfiles -u 2 __tests__/**/build.gradle __tests__/**/info.plist dist/",
     "build": "npx rimraf dist && npx tsc",
     "semantic-release": "semantic-release",
-    "setup-node-version": "npx -p @gdn/js-backend-toolkit setupNodeVersion --version=26",
+    "setup-node-version": "npx setupNodeVersion --version=26",
     "tsc": "tsc --noEmit"
   },
   "repository": {
@@ -29,6 +29,7 @@
   "homepage": "https://github.com/guidion-digital/semantic-release-native#readme",
   "devDependencies": {
     "@gdn/eslint-config-core": "^1.4.0",
+    "@gdn/js-backend-toolkit": "^3.2.1",
     "@types/jest": "^30.0.0",
     "@types/node": "^26",
     "@types/semver": "^7.3.13",
